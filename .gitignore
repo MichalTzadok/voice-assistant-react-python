@@ -1,0 +1,56 @@
+# === Node (React) ===
+client/node_modules/
+client/build/
+client/.env
+client/.DS_Store
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+.venv/
+.Python
+*.sqlite3
+
+# === VSCode ===
+.vscode/
+
+# === MacOS ===
+.DS_Store
+
+# === Logs ===
+*.log
+
+# === Python Env Settings ===
+*.env
+.env.*
+
+# === Flask / Debug ===
+instance/
+*.db
+*.pid
+
+# === Coverage / Testing ===
+htmlcov/
+.tox/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# === System Files ===
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# === IDE ===
+.idea/
+*.iml
