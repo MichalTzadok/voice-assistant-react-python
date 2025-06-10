@@ -1,10 +1,12 @@
-import webbrowser
 import os
 import subprocess
-from email.message import EmailMessage
+import re
 import ssl
 import smtplib
-import re
+import requests
+import webbrowser
+from bs4 import BeautifulSoup
+from email.message import EmailMessage
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -46,6 +48,21 @@ def extract_email(text):
     match = re.search(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", text)
     return match.group(0) if match else None
 
+def search_google(query):
+    try:
+        headers = {"User-Agent": "Mozilla/5.0"}
+        response = requests.get(f"https://www.google.com/search?q={query}", headers=headers)
+        soup = BeautifulSoup(response.text, "html.parser")
+        for link in soup.select("a"):
+            href = link.get("href")
+            if href and "/url?q=" in href:
+                url = href.split("/url?q=")[1].split("&")[0]
+                if "google" not in url:
+                    return url
+    except Exception as e:
+        print(f"Search error: {e}")
+    return None
+
 def process_command(command, assistant):
     if not command:
         return speak_and_return("לא קיבלתי פקודה. אנא נסה שוב.", assistant)
@@ -74,6 +91,18 @@ def process_command(command, assistant):
         except Exception as e:
             print(e)
             return speak_and_return("הייתה בעיה בעיבוד הפקודה", assistant)
+
+    elif "חפש בגוגל" in command:
+        query = command.split("חפש בגוגל")[-1].strip()
+        if not query:
+            return speak_and_return("לא קיבלתי מה לחפש", assistant)
+        assistant.speak(f"מחפשת בגוגל: {query}")
+        url = search_google(query)
+        if url:
+            webbrowser.open(url)
+            return speak_and_return("פתחתי את התוצאה הראשונה שמצאתי", assistant)
+        else:
+            return speak_and_return("לא מצאתי תוצאה", assistant)
 
     elif "פתח גוגל" in command:
         webbrowser.open("https://www.google.com")

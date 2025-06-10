@@ -1,38 +1,62 @@
-.App {
-  text-align: center;
+/* App.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Oxanium', sans-serif; 
+  margin: 0; /* הסרת מרווחים חיצוניים ברירת מחדל מהדפדפן */
+  direction: rtl; /* הגדרת כיוון טקסט מימין לשמאל */
+  -webkit-font-smoothing: antialiased; /* שיפור רינדור טקסט בדפדפנים מבוססי WebKit */
+  -moz-osx-font-smoothing: grayscale; /* שיפור רינדור טקסט ב-Firefox */
+  color: #E0E0E0; /* צבע טקסט בהיר יותר שיתאים לרקע כהה */
+
+  /* רקע מתפרס על כל העמוד עם מעבר צבעים דרמטי */
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* כחול כהה -> אדום כהה -> כתום בוהק */
+  background-size: 400% 400%; /* מאפשר אנימציה של הרקע */
+  animation: gradientAnimation 15s ease infinite; /* אנימציית מעבר צבעים איטית */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* אנימציית הרקע */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px; /* עבה יותר */
 }
 
-.App-link {
-  color: #61dafb;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* רקע שקוף למסלול */
+  border-radius: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #fdbb2d; /* צבע הידית בולט כמו הכתום ברקע */
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2); /* גבול עדין */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #e09d00; /* גוון כתום כהה יותר במעבר עכבר */
+}
+
+/* קלאס Glassmorphism עבור הכרטיסים */
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.1); /* רקע לבן שקוף */
+  backdrop-filter: blur(10px); /* טשטוש הרקע שמאחוריו */
+  -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפני WebKit */
+  border-radius: 2rem; /* פינות מאוד מעוגלות */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* גבול שקוף עדין */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* צללית עמוקה */
 }
